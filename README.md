@@ -9,3 +9,5 @@ and then,
 ### `npm start`
 
 The app should have started running in your browser.
+
+Visit the completed app at: [todo app](https://todo-app-react-de1d7.web.app/)

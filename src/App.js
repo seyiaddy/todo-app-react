@@ -1,14 +1,20 @@
 import "./App.css";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button, FormControl, InputLabel, Input } from "@material-ui/core";
 import Todo from "./components/Todo";
+import db from "./firebase";
 
 function App() {
-  const [todos, setTodos] = useState([
-    "Take dogs for a walk",
-    "Take the rubbish out",
-  ]);
+  const [todos, setTodos] = useState([]);
   const [input, setInput] = useState("");
+
+  // when the app loads, we listen to the database and fetch new todos
+  useEffect(() => {
+    // this code here runs only when the app loads
+    db.collection("todos").onSnapshot(snapshot => {
+      setTodos(snapshot.docs.map(doc => doc.data().todo));
+    });
+  }, []);
 
   const addTodo = (e) => {
     e.preventDefault(); // to prevent the page from reloading

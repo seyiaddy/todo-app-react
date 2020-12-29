@@ -52,9 +52,11 @@ function App() {
       </form>
 
       <ul>
-        <Grid container justify="center">
-          {todos.map(todo => <Todo todo={todo} key={todo.id} />)}
-        </Grid>
+        {todos.map(todo => (
+          <Grid container justify="center">
+            <Todo todo={todo} key={todo.id} />
+          </Grid>
+        ))}
       </ul>
     </div>
   );

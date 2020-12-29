@@ -1,7 +1,7 @@
 import "./App.css";
 import React, { useState, useEffect } from "react";
 import firebase from "firebase";
-import { Button, FormControl, InputLabel, Input } from "@material-ui/core";
+import { Button, FormControl, InputLabel, Input, Grid } from "@material-ui/core";
 import Todo from "./components/Todo";
 import db from "./firebase";
 
@@ -13,7 +13,7 @@ function App() {
   useEffect(() => {
     // this code here runs when the app loads
     db.collection("todos").orderBy("timestamp", "desc").onSnapshot(snapshot => {
-      setTodos(snapshot.docs.map(doc => doc.data().todo));
+      setTodos(snapshot.docs.map(doc => ({id: doc.id, todo: doc.data().todo})));
     });
   }, []);
 
@@ -52,9 +52,9 @@ function App() {
       </form>
 
       <ul>
-        {todos.map((todo) => (
-          <Todo todo={todo} />
-        ))}
+        <Grid container justify="center">
+          {todos.map(todo => <Todo todo={todo} key={todo.id} />)}
+        </Grid>
       </ul>
     </div>
   );
